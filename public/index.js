@@ -1,4 +1,4 @@
-var socket = io("http://localhost:3000");
+var socket = io("https://hoavochatroom.herokuapp.com");
 
 socket.on("username-taken", function () {
   alert("username-taken!!!!");
