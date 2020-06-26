@@ -1,4 +1,4 @@
-var socket = io("https://hoavochatroom.herokuapp.com");
+var socket = io("https://hoavochatroom.herokuapp.com/");
 
 socket.on("username-taken", function () {
   alert("username-taken!!!!");
@@ -10,10 +10,30 @@ socket.on("success-login", function (data) {
   $("#chat-div").show();
 });
 
+socket.on("login-event", function (data) {
+  $("#log-mess").append(
+    "<div class='log-display'> <i style='font-size:14px' class='fa'>&#xf105;</i>" +
+      data +
+      " joined</div>"
+  );
+});
+
+socket.on("logout-event", function (data) {
+  $("#log-mess").append(
+    "<div class='log-display'> <i style='font-size:14px' class='fa'>&#xf105;</i>" +
+      data +
+      " leaved</div>"
+  );
+});
+
 socket.on("user-online-list", function (data) {
   $("#online-user").html("");
   data.forEach(element => {
-    $("#online-user").append("<div class='current-user'>" + element + "</div>");
+    $("#online-user").append(
+      "<div class='current-user'> <i style='font-size: 14px; color: chartreuse;' class='fas'>&#xf111;</i>" +
+        element +
+        "</div>"
+    );
   });
 });
 
@@ -26,7 +46,11 @@ socket.on("sbd-logout", function (data) {
 
 socket.on("server-send-mess", function (data) {
   $("#chat-box").append(
-    "<div class='mess'><b>" + data.usn + "</b>: " + data.mess + "</div>"
+    "<div class='mess'><i style='font-size:14px' class='fa'>&#xf105;</i><b>" +
+      data.usn +
+      "</b>: " +
+      data.mess +
+      "</div>"
   );
 });
 

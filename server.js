@@ -9,7 +9,8 @@ var users = [];
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
 
-server.listen(process.env.PORT || 3000);
+// server.listen(process.env.PORT || 3000);
+server.listen(3000);
 console.log("server is running");
 
 io.on("connection", function (socket) {
@@ -19,6 +20,7 @@ io.on("connection", function (socket) {
     console.log(socket.id + " disconnected");
     users.splice(users.indexOf(socket.userName), 1);
     socket.broadcast.emit("sbd-logout", users);
+    socket.broadcast.emit("logout-event", socket.userName);
   });
 
   socket.on("username-send", function (data) {
@@ -29,6 +31,7 @@ io.on("connection", function (socket) {
       socket.userName = data;
       console.log("user " + data + " has joined");
       socket.emit("success-login", data);
+      io.sockets.emit("login-event", data);
       io.sockets.emit("user-online-list", users);
     }
   });
@@ -37,6 +40,7 @@ io.on("connection", function (socket) {
     users.splice(users.indexOf(socket.userName), 1);
     console.log(socket.userName + " logged out");
     socket.broadcast.emit("sbd-logout", users);
+    socket.broadcast.emit("logout-event", socket.userName);
   });
 
   socket.on("user-send-mess", function (data) {
