@@ -40,7 +40,11 @@ socket.on("user-online-list", function (data) {
 socket.on("sbd-logout", function (data) {
   $("#online-user").html("");
   data.forEach(element => {
-    $("#online-user").append("<div class='current-user'>" + element + "</div>");
+    $("#online-user").append(
+      "<div class='current-user'><i style='font-size: 14px; color: chartreuse;' class='fas'>&#xf111;</i>" +
+        element +
+        "</div>"
+    );
   });
 });
 
