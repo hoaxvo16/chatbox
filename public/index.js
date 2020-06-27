@@ -1,5 +1,5 @@
-var socket = io("https://hoavochatroom.herokuapp.com/");
-
+// var socket = io("https://hoavochatroom.herokuapp.com");
+var socket = io("http://localhost:3000");
 socket.on("username-taken", function () {
   alert("username-taken!!!!");
 });
@@ -56,6 +56,12 @@ socket.on("server-send-mess", function (data) {
       data.mess +
       "</div>"
   );
+  var height = 0;
+  $("#chat-box div").each(function (i, value) {
+    height += parseInt($(this).height());
+  });
+  height += "";
+  $("#chat-box").animate({ scrollTop: height });
 });
 
 $(document).ready(function () {
