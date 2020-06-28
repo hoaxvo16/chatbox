@@ -1,4 +1,5 @@
 var socket = io("https://hoavochatroom.herokuapp.com");
+// var socket = io("http://localhost:3000");
 socket.on("username-taken", function () {
   alert("username-taken!!!!");
 });
@@ -15,6 +16,12 @@ socket.on("login-event", function (data) {
       data +
       " joined</div>"
   );
+  var height = 0;
+  $("#log-mess div").each(function (i, value) {
+    height += parseInt($(this).height());
+  });
+  height += "";
+  $("#log-mess").animate({ scrollTop: height }, 1000);
 });
 
 socket.on("logout-event", function (data) {
@@ -34,6 +41,12 @@ socket.on("user-online-list", function (data) {
         "</div>"
     );
   });
+  var height = 0;
+  $("#online-user div").each(function (i, value) {
+    height += parseInt($(this).height());
+  });
+  height += "";
+  $("#online-user").animate({ scrollTop: height }, 1000);
 });
 
 socket.on("sbd-logout", function (data) {
